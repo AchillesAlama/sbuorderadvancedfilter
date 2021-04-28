@@ -267,6 +267,33 @@
                                 </sbu-order-advanced-filter-collapse>
                             {% endblock %}
 
+
+                            <sw-alert 
+                            title="$tc('sbu-order-advanced-filler.order_statistic')" 
+                            class="sw_order_stats p-0 mb-1 ms-1 me-1" 
+                            appearance="default" 
+                            :showIcon="false" 
+                            :closable="false">
+                                    Total {{ totalMoney }} <br>
+                                    {# Mono {{ monoNum }} <br>
+                                    Duo {{ duoNum }} <br>
+                                    Travller {{ travllerNum }} <br>
+                                    Codes {{ codesVar }} #}
+                                <template v-slot:actions>
+                                    <sw-button 
+                                    class="sw_order_stats" 
+                                    @click="getTotalMoney" 
+                                    :disabled="false" 
+                                    variant="ghost" 
+                                    size="large" 
+                                    :square="false" 
+                                    :block="false" 
+                                    :isLoading="false">
+                                    $tc('sbu-order-advanced-filler.calculate')
+                                    </sw-button>
+                                </template>
+                            </sw-alert>
+
                     </div>
                 {% endblock %}
 

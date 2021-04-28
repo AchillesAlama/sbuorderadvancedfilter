@@ -29,6 +29,10 @@ Component.override('sw-order-list', {
             return this.repositoryFactory.create('sales_channel');
         },
 
+        lineItemRepository() {
+            return this.repositoryFactory.create('order_line_item');
+        },
+
         today() {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -38,7 +42,17 @@ Component.override('sw-order-list', {
 
         orderCriteria() {
             const criteria = this.$super('orderCriteria');
-
+            console.log(criteria);
+            criteria.addAssociation('lineItems');
+            // .addAggregation(
+            //     Criteria.count('monoCount','productId')
+            // );
+            criteria.addAggregation(
+                Criteria.sum('totalSum','amountTotal')
+            );
+            // criteria.addAggregation(
+            //     Criteria.count('monoCount','lineItems')
+            // );
 
             if (this.salesChannelId) {
                 criteria.addFilter(Criteria.equals('salesChannelId', this.salesChannelId));
@@ -187,7 +201,6 @@ Component.override('sw-order-list', {
                 paymentMethodSelected: null,
                 dateSelected: null
             },
-
             salesChannelId: null,
             salesChannels: [],
 
@@ -212,6 +225,12 @@ Component.override('sw-order-list', {
 
             customStartDate: null,
             customEndDate: null,
+
+            totalMoney: 0,
+            // monoNum: 0,
+            // duoNum: 0,
+            // travllerNum: 0,
+            // codesVar: 0
         }
     },
 
@@ -334,6 +353,14 @@ Component.override('sw-order-list', {
             this.getList();
         },
 
+        onClearStats() {
+            this.totalMoney = 0;
+            this.monoNum = 0;
+            this.duoNum = 0;
+            this.travllerNum = 0;
+            this.codesVar = 0;
+        },
+
         onClearDates() {
             this.byDate = null;
             this.startDate = null;
@@ -427,6 +454,33 @@ Component.override('sw-order-list', {
                     { ending: this.formatDate(this.endDate) });
             }
 
+            return null;
+        },
+
+        getTotalMoney(){
+            this.totalMoney = 0;
+            // this.monoNum = 0;
+            // this.duoNum = 0;
+            // this.travllerNum = 0;
+            // this.codesVar = 0;
+            // this.lineItemRepository
+            // .search(this.orderCriteria, Shopware.Context.api)
+            // .then(r =>{
+            //     console.log(r)
+            // })
+            // this.orders.forEach(order => {
+            //     this.totalMoney += order.amountTotal;
+            //     order.lineItems.forEach(item => {
+            //         if(item.productId === "c51855e19ff045f1a5b3fce294cc364b")
+            //             this.monoNum += 1;
+            //         else if(item.productId === "ebe7bee1602e4638b3dd7d42fe984f01")
+            //             this.duoNum += 1;
+            //         else if(item.productId === "e072e71d1e50431aa7f970a0f434c92c")
+            //             this.travllerNum += 1;
+            //         else if(item.type === "promotion")
+            //             this.codesVar += 1;
+            //     });
+            // });
             return null;
         }
     }
