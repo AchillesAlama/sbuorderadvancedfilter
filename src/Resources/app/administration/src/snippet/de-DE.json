@@ -4,7 +4,7 @@
         "shipping_method": "Versandart",
         "payment_method": "Zahlungsart",
         "order_status": "Bestellstatus",
-        "order_statistic": "Bestell stats",
+        "order_statistic": "Bestellungen Statistik",
         "payment_status": "Zahlungsstatus",
         "delivery_status": "Lieferstatus",
         "date": "Datum",

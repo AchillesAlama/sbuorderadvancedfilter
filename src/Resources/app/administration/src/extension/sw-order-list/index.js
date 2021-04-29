@@ -484,7 +484,9 @@ Component.override('sw-order-list', {
                 }
             })
 
-            console.log(this.orders);
+            this.orderRepository.search(this.orderCriteria, Shopware.Context.api).then((response) => {
+                this.totalMoney = response.aggregations.totalSum.sum;
+            })
 
             return null;
         }
