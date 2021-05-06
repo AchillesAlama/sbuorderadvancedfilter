@@ -223,6 +223,8 @@ Component.override('sw-order-list', {
             monoNum: 0,
             duoNum: 0,
             travllerNum: 0,
+            gaiaNum: 0,
+            lmNum:0,
             codesVar: 0
         }
     },
@@ -350,6 +352,8 @@ Component.override('sw-order-list', {
             this.monoNum = 0;
             this.duoNum = 0;
             this.travllerNum = 0;
+            this.gaiaNum = 0;
+            this.lmNum = 0;
             this.codesVar = 0;
         },
 
@@ -454,6 +458,8 @@ Component.override('sw-order-list', {
             this.monoNum = 0;
             this.duoNum = 0;
             this.travllerNum = 0;
+            this.gaiaNum = 0;
+            this.lmNum = 0;
             this.codesVar = 0;
 
             const criteria = new Criteria();
@@ -472,11 +478,15 @@ Component.override('sw-order-list', {
                     .then(g =>{
                         g.forEach(item => {
                             if(item.productId === "c51855e19ff045f1a5b3fce294cc364b")
-                                this.monoNum += 1;
+                                this.monoNum += item.quantity;
                             else if(item.productId === "ebe7bee1602e4638b3dd7d42fe984f01")
-                                this.duoNum += 1;
+                                this.duoNum += item.quantity;
                             else if(item.productId === "e072e71d1e50431aa7f970a0f434c92c")
-                                this.travllerNum += 1;
+                                this.travllerNum += item.quantity;
+                            else if(item.productId === "d7197400708948568cd6569a65f6caa5")
+                                this.gaiaNum += item.quantity;
+                            else if(item.productId === "70dad4f45663420eba1f404c58736e70")
+                                this.lmNum += item.quantity;
                             else if(item.type === "promotion")
                                 this.codesVar += 1;
                         });
